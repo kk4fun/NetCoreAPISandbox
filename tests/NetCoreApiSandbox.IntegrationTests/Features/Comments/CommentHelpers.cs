@@ -5,10 +5,10 @@
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+    using Microsoft.EntityFrameworkCore;
     using NetCoreApiSandbox.Domain;
     using NetCoreApiSandbox.Features.Comments;
     using NetCoreApiSandbox.IntegrationTests.Features.Users;
-    using Microsoft.EntityFrameworkCore;
 
     #endregion
 

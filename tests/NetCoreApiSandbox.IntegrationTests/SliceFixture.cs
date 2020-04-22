@@ -5,11 +5,11 @@
     using System;
     using System.IO;
     using System.Threading.Tasks;
-    using NetCoreApiSandbox.Infrastructure;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using NetCoreApiSandbox.Infrastructure;
 
     #endregion
 

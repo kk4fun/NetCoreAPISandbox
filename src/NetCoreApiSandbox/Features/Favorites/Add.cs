@@ -15,7 +15,7 @@ namespace NetCoreApiSandbox.Features.Favorites
 
     #endregion
 
-    public sealed  class Add
+    public sealed class Add
     {
         #region Nested type: Command
 

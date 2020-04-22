@@ -4,9 +4,9 @@
 
     using System.Linq;
     using System.Threading.Tasks;
+    using Microsoft.EntityFrameworkCore;
     using NetCoreApiSandbox.Features.Users;
     using NetCoreApiSandbox.Infrastructure.Security;
-    using Microsoft.EntityFrameworkCore;
     using Xunit;
 
     #endregion

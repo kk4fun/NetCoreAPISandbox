@@ -1,6 +1,6 @@
 namespace NetCoreApiSandbox.Domain
 {
-    public class  FollowedPeople
+    public class FollowedPeople
     {
         public int ObserverId { get; set; }
 

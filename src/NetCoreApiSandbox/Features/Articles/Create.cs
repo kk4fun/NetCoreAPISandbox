@@ -19,6 +19,9 @@
     {
         #region Nested type: ArticleData
 
+        /// <summary>
+        /// Class that contains article data
+        /// </summary>
         public class ArticleData
         {
             public string Title { get; set; }
