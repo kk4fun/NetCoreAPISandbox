@@ -1,0 +1,13 @@
+version: '3.7'
+services:
+  netcoreapisandbox:
+    build:
+      context: .
+      dockerfile: Dockerfile
+#      dockerfile: Dockerfile-win64
+    environment:
+     - NetCoreApiSandbox_DatabaseProvider=${NetCoreApiSandbox_DatabaseProvider}
+     - NetCoreApiSandbox_ConnectionString=${NetCoreApiSandbox_ConnectionString}
+    ports:
+     - "5000:5000"
+ 

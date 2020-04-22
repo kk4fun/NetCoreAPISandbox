@@ -1,0 +1,32 @@
+﻿[*.cs]
+
+# CA1034: Nested types should not be visible
+dotnet_diagnostic.CA1034.severity = none
+
+# can remove property setter
+dotnet_diagnostic.CA2227.severity = none
+
+#configureawait call
+dotnet_diagnostic.CA2007.severity = none
+
+# implement ienumerable - collection keyword in name
+dotnet_diagnostic.CA1052.severity = none
+dotnet_diagnostic.CA1710.severity = none
+
+#null parameter check
+dotnet_diagnostic.CA1062.severity = none
+
+#name type conflict
+dotnet_diagnostic.CA1724.severity = none
+
+#static is possible
+dotnet_diagnostic.CA1822.severity = none
+
+#properties must no returns arrays
+dotnet_diagnostic.CA1819.severity = none
+
+#class instanve never created
+dotnet_diagnostic.CA1812.severity = none
+
+# dont handle global exception class
+dotnet_diagnostic.CA1031.severity = none
