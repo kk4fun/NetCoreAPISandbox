@@ -10,6 +10,6 @@ namespace NetCoreApiSandbox.Features.Profiles
             this.Profile = profile;
         }
 
-        public Profile Profile { get; set; }
+        public Profile Profile { get; }
     }
 }
