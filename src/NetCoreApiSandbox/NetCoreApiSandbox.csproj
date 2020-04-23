@@ -10,7 +10,7 @@
     <PropertyGroup>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <NoWarn>$(NoWarn);1591</NoWarn>
-        <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+        <RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="AutoMapper" Version="9.0.0" />
@@ -32,7 +32,7 @@
         <PackageReference Include="FluentValidation.AspNetCore" Version="8.6.2" />
         <PackageReference Include="MediatR" Version="8.0.1" />
         <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="5.3.1" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="5.3.3" />
     </ItemGroup>
     <ItemGroup>
         <Compile Update="Resources\Infrastructure.Errors.ErrorHandlingMiddleware.Designer.cs">

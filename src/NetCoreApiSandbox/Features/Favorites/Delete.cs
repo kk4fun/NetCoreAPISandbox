@@ -73,8 +73,8 @@ namespace NetCoreApiSandbox.Features.Favorites
                                                                     cancellationToken);
 
                 var favorite =
-                    await this._context.ArticleFavorites.FirstOrDefaultAsync(x => x.ArticleId == article.ArticleId &&
-                                                                                  x.PersonId == person.PersonId,
+                    await this._context.ArticleFavorites.FirstOrDefaultAsync(x => x.ArticleId == article.Id &&
+                                                                                  x.PersonId == person.Id,
                                                                              cancellationToken);
 
                 if (favorite != null)
@@ -84,8 +84,7 @@ namespace NetCoreApiSandbox.Features.Favorites
                 }
 
                 return new ArticleEnvelope(await this._context.Articles.GetAllData()
-                                                     .FirstOrDefaultAsync(x => x.ArticleId == article.ArticleId,
-                                                                          cancellationToken));
+                                                     .FirstOrDefaultAsync(x => x.Id == article.Id, cancellationToken));
             }
 
             #endregion

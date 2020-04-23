@@ -18,9 +18,9 @@
         /// <returns></returns>
         public static async Task<User> CreateDefaultUser(SliceFixture fixture)
         {
-            var command = new Create.Command()
+            var command = new Create.Command
             {
-                User = new Create.UserData() { Email = "email", Password = "password", Username = DefaultUserName }
+                User = new Create.UserData { Email = "email", Password = "password", Username = DefaultUserName }
             };
 
             var commandResult = await fixture.SendAsync(command);

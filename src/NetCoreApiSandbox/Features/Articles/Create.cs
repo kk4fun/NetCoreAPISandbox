@@ -17,27 +17,9 @@
 
     public class Create
     {
-        #region Nested type: ArticleData
-
-        /// <summary>
-        /// Class that contains article data
-        /// </summary>
-        public class ArticleData
-        {
-            public string Title { get; set; }
-
-            public string Description { get; set; }
-
-            public string Body { get; set; }
-
-            public IEnumerable<string> TagList { get; set; }
-        }
-
-        #endregion
-
         #region Nested type: ArticleDataValidator
 
-        private class ArticleDataValidator: AbstractValidator<ArticleData>
+        private class ArticleDataValidator: AbstractValidator<ArticleDTO>
         {
             public ArticleDataValidator()
             {
@@ -53,7 +35,7 @@
 
         public class Command: IRequest<ArticleEnvelope>
         {
-            public ArticleData Article { get; set; }
+            public ArticleDTO Article { get; set; }
         }
 
         #endregion
@@ -100,7 +82,7 @@
 
                     if (t == null)
                     {
-                        t = new Tag { TagId = tag };
+                        t = new Tag { Id = tag };
 
                         await this._context.Tags.AddAsync(t, cancellationToken);
 
@@ -139,5 +121,23 @@
         }
 
         #endregion
+
+        // #region Nested type: ArticleDTO
+        //
+        // /// <summary>
+        // /// Class that contains article data
+        // /// </summary>
+        // public class ArticleDTO
+        // {
+        //     public string Title { get; set; }
+        //
+        //     public string Description { get; set; }
+        //
+        //     public string Body { get; set; }
+        //
+        //     public IEnumerable<string> TagList { get; set; }
+        // }
+        //
+        // #endregion
     }
 }

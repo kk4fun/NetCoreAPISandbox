@@ -27,7 +27,7 @@ namespace NetCoreApiSandbox.Features.Users
         [HttpGet]
         public async Task<UserEnvelope> GetCurrent()
         {
-            return await this._mediator.Send(new Details.Query()
+            return await this._mediator.Send(new Details.Query
             {
                 Username = this._currentUserAccessor.GetCurrentUsername()
             });

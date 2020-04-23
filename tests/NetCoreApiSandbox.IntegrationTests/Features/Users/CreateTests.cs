@@ -16,9 +16,9 @@
         [Fact]
         public async Task Expect_Create_User()
         {
-            var command = new Create.Command()
+            var command = new Create.Command
             {
-                User = new Create.UserData() { Email = "email", Password = "password", Username = "username" }
+                User = new Create.UserData { Email = "email", Password = "password", Username = "username" }
             };
 
             await this.SendAsync(command);

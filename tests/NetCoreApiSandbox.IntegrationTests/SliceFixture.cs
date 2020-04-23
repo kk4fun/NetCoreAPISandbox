@@ -16,23 +16,23 @@
     public class SliceFixture: IDisposable
     {
         private static readonly IConfiguration Config;
+        private readonly string _dbName = Guid.NewGuid() + ".db";
         private readonly ServiceProvider _provider;
 
         private readonly IServiceScopeFactory _scopeFactory;
-        private readonly string DbName = Guid.NewGuid() + ".db";
 
         static SliceFixture()
         {
             Config = new ConfigurationBuilder().AddEnvironmentVariables().Build();
         }
 
-        public SliceFixture()
+        protected SliceFixture()
         {
             var startup = new Startup(Config);
             var services = new ServiceCollection();
 
             var builder = new DbContextOptionsBuilder();
-            builder.UseInMemoryDatabase(this.DbName);
+            builder.UseInMemoryDatabase(this._dbName);
             services.AddSingleton(new NetCoreSandboxApiContext(builder.Options));
 
             startup.ConfigureServices(services);
@@ -47,7 +47,7 @@
 
         public void Dispose()
         {
-            File.Delete(this.DbName);
+            File.Delete(this._dbName);
         }
 
         #endregion
@@ -57,7 +57,7 @@
             return this._provider.GetRequiredService<NetCoreSandboxApiContext>();
         }
 
-        public async Task ExecuteScopeAsync(Func<IServiceProvider, Task> action)
+        private async Task ExecuteScopeAsync(Func<IServiceProvider, Task> action)
         {
             using (var scope = this._scopeFactory.CreateScope())
             {
@@ -65,12 +65,11 @@
             }
         }
 
-        public async Task<T> ExecuteScopeAsync<T>(Func<IServiceProvider, Task<T>> action)
+        private async Task<T> ExecuteScopeAsync<T>(Func<IServiceProvider, Task<T>> action)
         {
-            using (var scope = this._scopeFactory.CreateScope())
-            {
-                return await action(scope.ServiceProvider);
-            }
+            using var scope = this._scopeFactory.CreateScope();
+
+            return await action(scope.ServiceProvider);
         }
 
         public Task<TResponse> SendAsync<TResponse>(IRequest<TResponse> request)
@@ -103,7 +102,7 @@
             return this.ExecuteScopeAsync(sp => action(sp.GetService<NetCoreSandboxApiContext>()));
         }
 
-        public Task InsertAsync(params object[] entities)
+        protected Task InsertAsync(params object[] entities)
         {
             return this.ExecuteDbContextAsync(db =>
             {

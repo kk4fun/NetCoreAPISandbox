@@ -68,7 +68,7 @@ namespace NetCoreApiSandbox.Features.Comments
                     throw new RestException(HttpStatusCode.NotFound, new { Article = Constants.NotFound });
                 }
 
-                var comment = article.Comments.FirstOrDefault(x => x.CommentId == message.Id);
+                var comment = article.Comments.FirstOrDefault(x => x.Id == message.Id);
 
                 if (comment == null)
                 {

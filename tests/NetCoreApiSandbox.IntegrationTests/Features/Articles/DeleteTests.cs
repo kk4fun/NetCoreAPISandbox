@@ -18,9 +18,9 @@
         [Fact]
         public async Task Expect_Delete_Article()
         {
-            var createCmd = new Create.Command()
+            var createCmd = new Create.Command
             {
-                Article = new Create.ArticleData()
+                Article = new ArticleDTO
                 {
                     Title = "Test article dsergiu77",
                     Description = "Description of the test article",
@@ -48,9 +48,9 @@
         [Fact]
         public async Task Expect_Delete_Article_With_Comments()
         {
-            var createArticleCmd = new Create.Command()
+            var createArticleCmd = new Create.Command
             {
-                Article = new Create.ArticleData()
+                Article = new ArticleDTO
                 {
                     Title = "Test article dsergiu77",
                     Description = "Description of the test article",
@@ -64,13 +64,13 @@
                                                                      .Where(d => d.Slug == article.Slug)
                                                                      .SingleOrDefaultAsync());
 
-            var articleId = dbArticle.ArticleId;
+            var articleId = dbArticle.Id;
             var slug = dbArticle.Slug;
 
             // create article comment
-            var createCommentCmd = new comments.Create.Command()
+            var createCommentCmd = new comments.Create.Command
             {
-                Comment = new comments.Create.CommentData() { Body = "article comment" }, Slug = slug
+                Comment = new comments.Create.CommentData { Body = "article comment" }, Slug = slug
             };
 
             var comment = await CommentHelpers.CreateComment(this, createCommentCmd, UserHelpers.DefaultUserName);
@@ -97,14 +97,14 @@
         [Fact]
         public async Task Expect_Delete_Article_With_Tags()
         {
-            var createCmd = new Create.Command()
+            var createCmd = new Create.Command
             {
-                Article = new Create.ArticleData()
+                Article = new ArticleDTO
                 {
                     Title = "Test article dsergiu77",
                     Description = "Description of the test article",
                     Body = "Body of the test article",
-                    TagList = new string[] { "tag1", "tag2" }
+                    TagList = new[] { "tag1", "tag2" }
                 }
             };
 

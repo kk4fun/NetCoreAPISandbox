@@ -11,9 +11,9 @@
         private readonly string _currentUserName;
 
         /// <summary>
-        /// stub the ICurrentUserAccessor with a given userName to be used in tests
+        ///     stub the ICurrentUserAccessor with a given userName to be used in tests
         /// </summary>
-        /// <param name="userName"></param>
+        /// <param name="userName">Current user's name</param>
         public StubCurrentUserAccessor(string userName)
         {
             this._currentUserName = userName;

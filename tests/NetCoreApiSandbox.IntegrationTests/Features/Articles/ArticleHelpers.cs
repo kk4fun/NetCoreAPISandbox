@@ -32,9 +32,8 @@
             var created = await articleCreateHandler.Handle(command, new CancellationToken());
 
             var dbArticle =
-                await fixture.ExecuteDbContextAsync(db => db
-                                                         .Articles.Where(a => a.ArticleId == created.Article.ArticleId)
-                                                         .SingleOrDefaultAsync());
+                await fixture.ExecuteDbContextAsync(db => db.Articles.Where(a => a.Id == created.Article.Id)
+                                                            .SingleOrDefaultAsync());
 
             return dbArticle;
         }

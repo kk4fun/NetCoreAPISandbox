@@ -9,11 +9,11 @@ namespace NetCoreApiSandbox.Features.Comments
 
     public class CommentsEnvelope
     {
-        public CommentsEnvelope(List<Comment> comments)
+        public CommentsEnvelope(ICollection<Comment> comments)
         {
             this.Comments = comments;
         }
 
-        public List<Comment> Comments { get; }
+        public ICollection<Comment> Comments { get; }
     }
 }

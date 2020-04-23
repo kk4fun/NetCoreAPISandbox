@@ -47,7 +47,7 @@ namespace NetCoreApiSandbox.Features.Profiles
                                               .Include(x => x.Followers)
                                               .FirstOrDefaultAsync(x => x.Username == currentUserName);
 
-                if (currentPerson.Followers.Any(x => x.TargetId == person.PersonId))
+                if (currentPerson.Followers.Any(x => x.TargetId == person.Id))
                 {
                     profile.IsFollowed = true;
                 }

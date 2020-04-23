@@ -8,6 +8,6 @@ namespace NetCoreApiSandbox.Features.Tags
 
     public class TagsEnvelope
     {
-        public List<string> Tags { get; set; }
+        public IEnumerable<string> Tags { get; set; }
     }
 }

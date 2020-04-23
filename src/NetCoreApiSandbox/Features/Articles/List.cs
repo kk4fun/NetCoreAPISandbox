@@ -18,7 +18,7 @@ namespace NetCoreApiSandbox.Features.Articles
         public class Query: IRequest<ArticlesEnvelope>
         {
             /// <summary>
-            /// Initializes a new instance of the <see cref="Query"/> class.
+            ///     Initializes a new instance of the <see cref="Query" /> class.
             /// </summary>
             /// <param name="tag">Article tag</param>
             /// <param name="author"></param>
@@ -35,7 +35,7 @@ namespace NetCoreApiSandbox.Features.Articles
             }
 
             /// <summary>
-            /// Gets article tag
+            ///     Gets article tag
             /// </summary>
             public string Tag { get; }
 
@@ -55,7 +55,7 @@ namespace NetCoreApiSandbox.Features.Articles
         #region Nested type: QueryHandler
 
         /// <summary>
-        /// MediatR query handler
+        ///     MediatR query handler
         /// </summary>
         protected class QueryHandler: IRequestHandler<Query, ArticlesEnvelope>
         {
@@ -63,7 +63,7 @@ namespace NetCoreApiSandbox.Features.Articles
             private readonly ICurrentUserAccessor _currentUserAccessor;
 
             /// <summary>
-            /// Initializes a new instance of the <see cref="QueryHandler"/> class.
+            ///     Initializes a new instance of the <see cref="QueryHandler" /> class.
             /// </summary>
             /// <param name="context"></param>
             /// <param name="currentUserAccessor"></param>
@@ -86,9 +86,8 @@ namespace NetCoreApiSandbox.Features.Articles
                                                                                             .GetCurrentUsername(),
                                                                      cancellationToken);
 
-                    queryable = queryable.Where(x => currentUser
-                                                    .Following.Select(y => y.TargetId)
-                                                    .Contains(x.Author.PersonId));
+                    queryable =
+                        queryable.Where(x => currentUser.Following.Select(y => y.TargetId).Contains(x.Author.Id));
                 }
 
                 if (!string.IsNullOrWhiteSpace(message.Tag))
@@ -130,7 +129,7 @@ namespace NetCoreApiSandbox.Features.Articles
 
                     if (author != null)
                     {
-                        queryable = queryable.Where(x => x.ArticleFavorites.Any(y => y.PersonId == author.PersonId));
+                        queryable = queryable.Where(x => x.ArticleFavorites.Any(y => y.PersonId == author.Id));
                     }
                     else
                     {
@@ -144,7 +143,7 @@ namespace NetCoreApiSandbox.Features.Articles
                                               .AsNoTracking()
                                               .ToListAsync(cancellationToken);
 
-                return new ArticlesEnvelope() { Articles = articles, ArticlesCount = queryable.Count() };
+                return new ArticlesEnvelope { Articles = articles, ArticlesCount = queryable.Count() };
             }
 
             #endregion

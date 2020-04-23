@@ -43,7 +43,7 @@
                                                             .SingleOrDefaultAsync());
 
             var dbComment = dbArticleWithComments
-                           .Comments.Where(c => c.ArticleId == dbArticleWithComments.ArticleId &&
+                           .Comments.Where(c => c.ArticleId == dbArticleWithComments.Id &&
                                                 c.Author == dbArticleWithComments.Author)
                            .FirstOrDefault();
 

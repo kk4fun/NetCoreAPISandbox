@@ -34,9 +34,9 @@ namespace NetCoreApiSandbox.Features.Tags
 
             public async Task<TagsEnvelope> Handle(Query message, CancellationToken cancellationToken)
             {
-                var tags = await this._context.Tags.OrderBy(x => x.TagId).AsNoTracking().ToListAsync(cancellationToken);
+                var tags = await this._context.Tags.OrderBy(x => x.Id).AsNoTracking().ToListAsync(cancellationToken);
 
-                return new TagsEnvelope() { Tags = tags.Select(x => x.TagId).ToList() };
+                return new TagsEnvelope { Tags = tags.Select(x => x.Id).ToList() };
             }
 
             #endregion

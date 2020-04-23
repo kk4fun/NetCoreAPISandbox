@@ -13,11 +13,11 @@
 
     public class ValidationPipelineBehavior<TRequest, TResponse>: IPipelineBehavior<TRequest, TResponse>
     {
-        private readonly List<IValidator<TRequest>> _validators;
+        private readonly IEnumerable<IValidator<TRequest>> _validators;
 
         public ValidationPipelineBehavior(IEnumerable<IValidator<TRequest>> validators)
         {
-            this._validators = validators.ToList();
+            this._validators = validators;
         }
 
         #region IPipelineBehavior<TRequest,TResponse> Members

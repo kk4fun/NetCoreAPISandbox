@@ -26,17 +26,21 @@
     #endregion
 
     /// <summary>
-    /// Main configuration class
+    ///     Main configuration class
     /// </summary>
     public class Startup
     {
         private const string DefaultDatabaseConnectionString = "Filename=netcore-api-sandbox.db";
+
         private const string DefaultDatabaseProvider = "sqlite";
+
+        // private const string DefaultDatabaseConnectionString = @"Server=(localdb)\mssqllocaldb;Database=sandbox;Trusted_Connection=True;";
+        // private const string DefaultDatabaseProvider = "sqlserver";
 
         private readonly IConfiguration _config;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Startup" /> class.
+        ///     Initializes a new instance of the <see cref="Startup" /> class.
         /// </summary>
         /// <param name="config">Default configuration.</param>
         public Startup(IConfiguration config)
@@ -45,8 +49,8 @@
         }
 
         /// <summary>
-        /// This method gets called by the runtime. Use this method to add services to the container
-        /// or more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        ///     This method gets called by the runtime. Use this method to add services to the container
+        ///     or more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         /// </summary>
         /// <param name="services">The services collection.</param>
         /// <exception cref="Exception">Throws exception if Database provider is unknown.</exception>
@@ -54,7 +58,7 @@
         {
             services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
-            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(DBContextTransactionPipelineBehavior<,>));
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(DbContextTransactionPipelineBehavior<,>));
 
             // take the connection string from the environment variable or use hard-coded database name
             var connectionString = this._config.GetValue<string>("NetCoreApiSandbox_ConnectionString") ??
@@ -155,7 +159,7 @@
         }
 
         /// <summary>
-        /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        ///     This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         /// </summary>
         /// <param name="app">The app builder.</param>
         /// <param name="loggerFactory">The logger factory.</param>

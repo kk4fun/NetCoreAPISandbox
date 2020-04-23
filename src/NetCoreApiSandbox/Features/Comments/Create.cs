@@ -91,7 +91,7 @@ namespace NetCoreApiSandbox.Features.Comments
                                                                 this._currentUserAccessor.GetCurrentUsername(),
                                                            cancellationToken);
 
-                var comment = new Comment()
+                var comment = new Comment
                 {
                     Author = author,
                     Body = message.Comment.Body,
