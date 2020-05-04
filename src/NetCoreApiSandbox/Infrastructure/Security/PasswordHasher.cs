@@ -17,7 +17,7 @@
         #region IDisposable Members
 
         /// <summary>
-        ///     Implements standard Dispose method of IDisposable interface
+        /// Implements standard Dispose method of IDisposable interface
         /// </summary>
         public void Dispose()
         {
@@ -30,7 +30,7 @@
         #region IPasswordHasher Members
 
         /// <summary>
-        ///     Calculates pwd's hash
+        /// Calculates pwd's hash
         /// </summary>
         /// <param name="password">Pwd string</param>
         /// <param name="salt">pwd's salt</param>
@@ -67,7 +67,7 @@
         }
 
         /// <summary>
-        ///     Class destructor
+        /// Class destructor
         /// </summary>
         ~PasswordHasher()
         {
