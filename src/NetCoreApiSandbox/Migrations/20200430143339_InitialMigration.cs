@@ -1,7 +1,11 @@
 ﻿namespace NetCoreApiSandbox.Migrations
 {
+    #region
+
     using System;
     using Microsoft.EntityFrameworkCore.Migrations;
+
+    #endregion
 
     public partial class InitialMigration: Migration
     {
