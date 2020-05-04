@@ -24,12 +24,10 @@
 
         public RestException(string message): base(message) { }
 
+        public RestException(string message, Exception innerException): base(message, innerException) { }
+
         public object Errors { get; set; }
 
         public HttpStatusCode Code { get; }
-
-        public RestException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
     }
 }

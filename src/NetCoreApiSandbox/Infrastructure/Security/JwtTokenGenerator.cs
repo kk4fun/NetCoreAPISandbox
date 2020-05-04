@@ -29,7 +29,9 @@
                 new Claim(JwtRegisteredClaimNames.Sub, username),
                 new Claim(JwtRegisteredClaimNames.Jti, await this._jwtOptions.JtiGenerator()),
                 new Claim(JwtRegisteredClaimNames.Iat,
-                          new DateTimeOffset(this._jwtOptions.IssuedAt).ToUnixTimeSeconds().ToString(CultureInfo.CurrentCulture),
+                          new DateTimeOffset(this._jwtOptions.IssuedAt)
+                             .ToUnixTimeSeconds()
+                             .ToString(CultureInfo.CurrentCulture),
                           ClaimValueTypes.Integer64)
             };
 

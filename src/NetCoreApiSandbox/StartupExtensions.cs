@@ -63,7 +63,7 @@
 
                          options.Events = new JwtBearerEvents
                          {
-                             OnMessageReceived = (context) =>
+                             OnMessageReceived = context =>
                              {
                                  var token = context.HttpContext.Request.Headers["Authorization"];
 

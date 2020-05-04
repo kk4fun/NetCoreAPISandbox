@@ -28,10 +28,7 @@
 
             await this.InsertAsync(person);
 
-            var command = new Login.Command()
-            {
-                User = new Login.UserData() { Email = "email", Password = "password" }
-            };
+            var command = new Login.Command { User = new Login.UserData { Email = "email", Password = "password" } };
 
             var user = await this.SendAsync(command);
 

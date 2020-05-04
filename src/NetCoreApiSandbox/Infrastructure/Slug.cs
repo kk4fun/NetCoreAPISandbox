@@ -3,8 +3,6 @@
     #region
 
     using System.Globalization;
-    using System.Linq;
-    using System.Text;
 
     #endregion
 
@@ -20,13 +18,14 @@
             return punyCode;
         }
 
-        public static string RemoveDiacritics(this string text)
-        {
-            var s = new string(text.Normalize(NormalizationForm.FormD)
-                                   .Where(c => CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark)
-                                   .ToArray());
-
-            return s.Normalize(NormalizationForm.FormC);
-        }
+        // TODO: remove if unused
+        // public static string RemoveDiacritics(this string text)
+        // {
+        //     var s = new string(text.Normalize(NormalizationForm.FormD)
+        //                            .Where(c => CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark)
+        //                            .ToArray());
+        //
+        //     return s.Normalize(NormalizationForm.FormC);
+        // }
     }
 }

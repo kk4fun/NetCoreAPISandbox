@@ -37,7 +37,7 @@ namespace NetCoreApiSandbox.Features.Followers
         {
             public CommandValidator()
             {
-                DefaultValidatorExtensions.NotNull(this.RuleFor(x => x.Username)).NotEmpty();
+                this.RuleFor(x => x.Username).NotNull().NotEmpty();
             }
         }
 
@@ -80,18 +80,15 @@ namespace NetCoreApiSandbox.Features.Followers
                                                                     cancellationToken);
 
                 var followedPeople =
-                    await this._context.FollowedPeople.FirstOrDefaultAsync(x => x.ObserverId == observer.PersonId &&
-                                                                                x.TargetId == target.PersonId,
+                    await this._context.FollowedPeople.FirstOrDefaultAsync(x => x.ObserverId == observer.Id &&
+                                                                                x.TargetId == target.Id,
                                                                            cancellationToken);
 
                 if (followedPeople == null)
                 {
-                    followedPeople = new FollowedPeople()
+                    followedPeople = new FollowedPeople
                     {
-                        Observer = observer,
-                        ObserverId = observer.PersonId,
-                        Target = target,
-                        TargetId = target.PersonId
+                        Observer = observer, ObserverId = observer.Id, Target = target, TargetId = target.Id
                     };
 
                     await this._context.FollowedPeople.AddAsync(followedPeople, cancellationToken);

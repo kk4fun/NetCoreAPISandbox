@@ -5,10 +5,10 @@
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+    using Microsoft.EntityFrameworkCore;
     using NetCoreApiSandbox.Domain;
     using NetCoreApiSandbox.Features.Comments;
     using NetCoreApiSandbox.IntegrationTests.Features.Users;
-    using Microsoft.EntityFrameworkCore;
 
     #endregion
 
@@ -43,7 +43,7 @@
                                                             .SingleOrDefaultAsync());
 
             var dbComment = dbArticleWithComments
-                           .Comments.Where(c => c.ArticleId == dbArticleWithComments.ArticleId &&
+                           .Comments.Where(c => c.ArticleId == dbArticleWithComments.Id &&
                                                 c.Author == dbArticleWithComments.Author)
                            .FirstOrDefault();
 

@@ -15,7 +15,7 @@ namespace NetCoreApiSandbox.Features.Favorites
 
     #endregion
 
-    public sealed  class Add
+    public sealed class Add
     {
         #region Nested type: Command
 
@@ -74,18 +74,15 @@ namespace NetCoreApiSandbox.Features.Favorites
                                                                     cancellationToken);
 
                 var favorite =
-                    await this._context.ArticleFavorites.FirstOrDefaultAsync(x => x.ArticleId == article.ArticleId &&
-                                                                                  x.PersonId == person.PersonId,
+                    await this._context.ArticleFavorites.FirstOrDefaultAsync(x => x.ArticleId == article.Id &&
+                                                                                  x.PersonId == person.Id,
                                                                              cancellationToken);
 
                 if (favorite == null)
                 {
-                    favorite = new ArticleFavorite()
+                    favorite = new ArticleFavorite
                     {
-                        Article = article,
-                        ArticleId = article.ArticleId,
-                        Person = person,
-                        PersonId = person.PersonId
+                        Article = article, ArticleId = article.Id, Person = person, PersonId = person.Id
                     };
 
                     await this._context.ArticleFavorites.AddAsync(favorite, cancellationToken);
@@ -93,8 +90,7 @@ namespace NetCoreApiSandbox.Features.Favorites
                 }
 
                 return new ArticleEnvelope(await this._context.Articles.GetAllData()
-                                                     .FirstOrDefaultAsync(x => x.ArticleId == article.ArticleId,
-                                                                          cancellationToken));
+                                                     .FirstOrDefaultAsync(x => x.Id == article.Id, cancellationToken));
             }
 
             #endregion

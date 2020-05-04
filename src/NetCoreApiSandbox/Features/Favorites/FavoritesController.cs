@@ -21,6 +21,11 @@ namespace NetCoreApiSandbox.Features.Favorites
             this._mediator = mediator;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="slug"></param>
+        /// <returns></returns>
         [HttpPost("{slug}/favorite")]
         [Authorize(AuthenticationSchemes = JwtIssuerOptions.Schemes)]
         public async Task<ArticleEnvelope> FavoriteAdd(string slug)

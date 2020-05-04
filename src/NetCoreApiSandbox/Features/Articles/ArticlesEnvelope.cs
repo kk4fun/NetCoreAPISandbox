@@ -9,7 +9,7 @@ namespace NetCoreApiSandbox.Features.Articles
 
     public class ArticlesEnvelope
     {
-        public List<Article> Articles { get; set; }
+        public IEnumerable<Article> Articles { get; set; }
 
         public int ArticlesCount { get; set; }
     }

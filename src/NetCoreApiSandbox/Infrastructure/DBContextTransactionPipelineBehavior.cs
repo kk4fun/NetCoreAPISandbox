@@ -9,11 +9,11 @@
 
     #endregion
 
-    public class DBContextTransactionPipelineBehavior<TRequest, TResponse>: IPipelineBehavior<TRequest, TResponse>
+    public class DbContextTransactionPipelineBehavior<TRequest, TResponse>: IPipelineBehavior<TRequest, TResponse>
     {
         private readonly NetCoreSandboxApiContext _context;
 
-        public DBContextTransactionPipelineBehavior(NetCoreSandboxApiContext context)
+        public DbContextTransactionPipelineBehavior(NetCoreSandboxApiContext context)
         {
             this._context = context;
         }

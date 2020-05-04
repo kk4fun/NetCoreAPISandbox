@@ -21,7 +21,7 @@ namespace NetCoreApiSandbox.Features.Profiles
         [HttpGet("{username}")]
         public async Task<ProfileEnvelope> Get(string username)
         {
-            return await this._mediator.Send(new Details.Query() { Username = username });
+            return await this._mediator.Send(new Details.Query { Username = username });
         }
     }
 }

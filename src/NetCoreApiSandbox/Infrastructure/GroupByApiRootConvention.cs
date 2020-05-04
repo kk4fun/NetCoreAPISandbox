@@ -16,7 +16,9 @@
         public void Apply(ControllerModel controller)
         {
             var controllerNamespace = controller.Attributes.OfType<RouteAttribute>().FirstOrDefault();
-            var apiVersion = controllerNamespace?.Template?.Split('/')?.First()?.ToLower(CultureInfo.CurrentCulture) ?? "default";
+
+            var apiVersion = controllerNamespace?.Template?.Split('/')?.First()?.ToLower(CultureInfo.CurrentCulture) ??
+                             "default";
 
             controller.ApiExplorer.GroupName = apiVersion;
         }

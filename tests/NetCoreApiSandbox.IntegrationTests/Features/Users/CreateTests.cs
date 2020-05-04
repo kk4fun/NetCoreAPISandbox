@@ -4,9 +4,9 @@
 
     using System.Linq;
     using System.Threading.Tasks;
+    using Microsoft.EntityFrameworkCore;
     using NetCoreApiSandbox.Features.Users;
     using NetCoreApiSandbox.Infrastructure.Security;
-    using Microsoft.EntityFrameworkCore;
     using Xunit;
 
     #endregion
@@ -16,9 +16,9 @@
         [Fact]
         public async Task Expect_Create_User()
         {
-            var command = new Create.Command()
+            var command = new Create.Command
             {
-                User = new Create.UserData() { Email = "email", Password = "password", Username = "username" }
+                User = new Create.UserData { Email = "email", Password = "password", Username = "username" }
             };
 
             await this.SendAsync(command);

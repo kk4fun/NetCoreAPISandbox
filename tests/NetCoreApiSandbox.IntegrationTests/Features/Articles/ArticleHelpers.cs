@@ -5,10 +5,10 @@
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+    using Microsoft.EntityFrameworkCore;
     using NetCoreApiSandbox.Domain;
     using NetCoreApiSandbox.Features.Articles;
     using NetCoreApiSandbox.IntegrationTests.Features.Users;
-    using Microsoft.EntityFrameworkCore;
 
     #endregion
 
@@ -32,9 +32,8 @@
             var created = await articleCreateHandler.Handle(command, new CancellationToken());
 
             var dbArticle =
-                await fixture.ExecuteDbContextAsync(db => db
-                                                         .Articles.Where(a => a.ArticleId == created.Article.ArticleId)
-                                                         .SingleOrDefaultAsync());
+                await fixture.ExecuteDbContextAsync(db => db.Articles.Where(a => a.Id == created.Article.Id)
+                                                            .SingleOrDefaultAsync());
 
             return dbArticle;
         }

@@ -1,5 +1,8 @@
 namespace NetCoreApiSandbox.Features.Profiles
 {
+    /// <summary>
+    /// Profile envelop class
+    /// </summary>
     public class ProfileEnvelope
     {
         public ProfileEnvelope(Profile profile)
@@ -7,6 +10,6 @@ namespace NetCoreApiSandbox.Features.Profiles
             this.Profile = profile;
         }
 
-        public Profile Profile { get; set; }
+        public Profile Profile { get; }
     }
 }
