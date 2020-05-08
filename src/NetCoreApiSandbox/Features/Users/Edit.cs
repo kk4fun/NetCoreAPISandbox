@@ -66,7 +66,7 @@
             {
                 var currentUsername = this._currentUserAccessor.GetCurrentUsername();
 
-                var person = await this._context.Persons.Where(x => x.Username == currentUsername)
+                var person = await this._context.Users.Where(x => x.Username == currentUsername)
                                        .FirstOrDefaultAsync(cancellationToken);
 
                 person.Username = message.User.Username ?? person.Username;
@@ -83,7 +83,7 @@
 
                 await this._context.SaveChangesAsync(cancellationToken);
 
-                return new UserEnvelope(this._mapper.Map<Person, User>(person));
+                return new UserEnvelope(this._mapper.Map<User, UserDTO>(person));
             }
 
             #endregion

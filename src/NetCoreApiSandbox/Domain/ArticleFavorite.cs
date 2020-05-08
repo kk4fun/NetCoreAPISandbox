@@ -6,8 +6,8 @@ namespace NetCoreApiSandbox.Domain
 
         public Article Article { get; set; }
 
-        public int PersonId { get; set; }
+        public int UserId { get; set; }
 
-        public Person Person { get; set; }
+        public User User { get; set; }
     }
 }

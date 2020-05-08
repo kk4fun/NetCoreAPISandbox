@@ -68,13 +68,13 @@ namespace NetCoreApiSandbox.Features.Favorites
                 }
 
                 var person =
-                    await this._context.Persons.FirstOrDefaultAsync(x => x.Username ==
-                                                                         this._currentUserAccessor.GetCurrentUsername(),
-                                                                    cancellationToken);
+                    await this._context.Users.FirstOrDefaultAsync(x => x.Username ==
+                                                                       this._currentUserAccessor.GetCurrentUsername(),
+                                                                  cancellationToken);
 
                 var favorite =
                     await this._context.ArticleFavorites.FirstOrDefaultAsync(x => x.ArticleId == article.Id &&
-                                                                                  x.PersonId == person.Id,
+                                                                                  x.UserId == person.Id,
                                                                              cancellationToken);
 
                 if (favorite != null)

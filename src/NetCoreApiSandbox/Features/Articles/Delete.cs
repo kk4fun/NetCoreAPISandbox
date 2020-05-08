@@ -13,7 +13,7 @@ namespace NetCoreApiSandbox.Features.Articles
 
     #endregion
 
-    public class Delete
+    public static class Delete
     {
         #region Nested type: Command
 
@@ -24,14 +24,14 @@ namespace NetCoreApiSandbox.Features.Articles
                 this.Slug = slug;
             }
 
-            public string Slug { get; set; }
+            public string Slug { get; }
         }
 
         #endregion
 
         #region Nested type: CommandValidator
 
-        public class CommandValidator: AbstractValidator<Command>
+        private class CommandValidator: AbstractValidator<Command>
         {
             public CommandValidator()
             {

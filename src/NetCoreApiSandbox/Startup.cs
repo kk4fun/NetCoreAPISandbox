@@ -11,6 +11,7 @@
     using FluentValidation.AspNetCore;
     using MediatR;
     using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
@@ -26,31 +27,33 @@
     #endregion
 
     /// <summary>
-    ///     Main configuration class
+    /// Main configuration class
     /// </summary>
     public class Startup
     {
         private const string DefaultDatabaseConnectionString = "Filename=netcore-api-sandbox.db";
-
         private const string DefaultDatabaseProvider = "sqlite";
-
-        // private const string DefaultDatabaseConnectionString = @"Server=(localdb)\mssqllocaldb;Database=sandbox;Trusted_Connection=True;";
-        // private const string DefaultDatabaseProvider = "sqlserver";
 
         private readonly IConfiguration _config;
 
+        private readonly IWebHostEnvironment _env;
+
         /// <summary>
-        ///     Initializes a new instance of the <see cref="Startup" /> class.
+        /// Initializes a new instance of the <see cref="Startup" /> class.
         /// </summary>
         /// <param name="config">Default configuration.</param>
-        public Startup(IConfiguration config)
+        /// <param name="env">Web host environment object</param>
+
+        // public Startup(IConfiguration config)
+        public Startup(IConfiguration config, IWebHostEnvironment env)
         {
             this._config = config;
+            this._env = env;
         }
 
         /// <summary>
-        ///     This method gets called by the runtime. Use this method to add services to the container
-        ///     or more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        /// This method gets called by the runtime. Use this method to add services to the container
+        /// or more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         /// </summary>
         /// <param name="services">The services collection.</param>
         /// <exception cref="Exception">Throws exception if Database provider is unknown.</exception>
@@ -74,17 +77,20 @@
 
             services.AddDbContext<NetCoreSandboxApiContext>(options =>
             {
-                if (databaseProvider.ToLower(CultureInfo.CurrentCulture)
-                                    .Trim()
-                                    .Equals("sqlite", StringComparison.CurrentCulture))
+                if (databaseProvider.Trim().Equals("sqlite", StringComparison.InvariantCultureIgnoreCase))
                 {
                     options.UseSqlite(connectionString);
                 }
-                else if (databaseProvider.ToLower(CultureInfo.CurrentCulture)
-                                         .Trim()
-                                         .Equals("sqlserver", StringComparison.CurrentCulture))
+                else if (databaseProvider.Trim().Equals("sqlserver", StringComparison.InvariantCultureIgnoreCase))
 
                 {
+                    var contentRootPath = this._env.ContentRootPath;
+                    AppDomain.CurrentDomain.SetData("DataDirectory", this._env.ContentRootPath);
+
+                    connectionString = string.Format(CultureInfo.CurrentCulture,
+                                                     @"Server=(localdb)\mssqllocaldb;AttachDbFileName={0}\sandbox.mdf;Trusted_Connection=True;Database=dbSandbox",
+                                                     contentRootPath);
+
                     // only works in windows container
                     options.UseSqlServer(connectionString);
                 }
@@ -158,7 +164,7 @@
         }
 
         /// <summary>
-        ///     This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         /// </summary>
         /// <param name="app">The app builder.</param>
         /// <param name="loggerFactory">The logger factory.</param>

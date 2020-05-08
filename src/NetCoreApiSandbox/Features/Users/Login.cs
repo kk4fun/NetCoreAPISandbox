@@ -65,7 +65,7 @@
 
             public async Task<UserEnvelope> Handle(Command message, CancellationToken cancellationToken)
             {
-                var person = await this._context.Persons.Where(x => x.Email == message.User.Email)
+                var person = await this._context.Users.Where(x => x.Email == message.User.Email)
                                        .SingleOrDefaultAsync(cancellationToken);
 
                 if (person == null)
@@ -78,7 +78,7 @@
                     throw new RestException(HttpStatusCode.Unauthorized, new { Error = "Invalid email / password." });
                 }
 
-                var user = this._mapper.Map<Person, User>(person);
+                var user = this._mapper.Map<User, UserDTO>(person);
                 user.Token = await this._jwtTokenGenerator.CreateToken(person.Username);
 
                 return new UserEnvelope(user);

@@ -11,7 +11,7 @@
     {
         public MappingProfile()
         {
-            this.CreateMap<Person, Profile>(MemberList.None);
+            this.CreateMap<User, Profile>(MemberList.None);
         }
     }
 }

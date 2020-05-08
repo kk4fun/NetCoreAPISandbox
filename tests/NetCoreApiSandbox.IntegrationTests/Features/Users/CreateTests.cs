@@ -24,7 +24,7 @@
             await this.SendAsync(command);
 
             var created =
-                await this.ExecuteDbContextAsync(db => db.Persons.Where(d => d.Email == command.User.Email)
+                await this.ExecuteDbContextAsync(db => db.Users.Where(d => d.Email == command.User.Email)
                                                          .SingleOrDefaultAsync());
 
             Assert.NotNull(created);

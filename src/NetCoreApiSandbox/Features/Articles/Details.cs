@@ -13,7 +13,7 @@ namespace NetCoreApiSandbox.Features.Articles
 
     #endregion
 
-    public class Details
+    public static class Details
     {
         #region Nested type: Query
 

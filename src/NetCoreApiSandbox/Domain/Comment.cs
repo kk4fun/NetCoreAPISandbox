@@ -28,7 +28,7 @@ namespace NetCoreApiSandbox.Domain
         /// <summary>
         /// The author inverse navigation property
         /// </summary>
-        public Person Author { get; set; }
+        public User Author { get; set; }
 
         /// <summary>
         /// Author id foreign key

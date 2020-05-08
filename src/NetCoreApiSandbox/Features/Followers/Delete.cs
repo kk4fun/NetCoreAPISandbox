@@ -65,8 +65,8 @@ namespace NetCoreApiSandbox.Features.Followers
             public async Task<ProfileEnvelope> Handle(Command message, CancellationToken cancellationToken)
             {
                 var target =
-                    await this._context.Persons.FirstOrDefaultAsync(x => x.Username == message.Username,
-                                                                    cancellationToken);
+                    await this._context.Users.FirstOrDefaultAsync(x => x.Username == message.Username,
+                                                                  cancellationToken);
 
                 if (target == null)
                 {
@@ -74,9 +74,9 @@ namespace NetCoreApiSandbox.Features.Followers
                 }
 
                 var observer =
-                    await this._context.Persons.FirstOrDefaultAsync(x => x.Username ==
-                                                                         this._currentUserAccessor.GetCurrentUsername(),
-                                                                    cancellationToken);
+                    await this._context.Users.FirstOrDefaultAsync(x => x.Username ==
+                                                                       this._currentUserAccessor.GetCurrentUsername(),
+                                                                  cancellationToken);
 
                 var followedPeople =
                     await this._context.FollowedPeople.FirstOrDefaultAsync(x => x.ObserverId == observer.Id &&

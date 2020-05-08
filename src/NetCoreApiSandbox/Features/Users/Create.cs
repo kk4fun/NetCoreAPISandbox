@@ -66,21 +66,21 @@
 
             public async Task<UserEnvelope> Handle(Command message, CancellationToken cancellationToken)
             {
-                if (await this._context.Persons.Where(x => x.Username == message.User.Username)
+                if (await this._context.Users.Where(x => x.Username == message.User.Username)
                               .AnyAsync(cancellationToken))
                 {
                     throw new RestException(HttpStatusCode.BadRequest, new { Username = Constants.InUse });
                 }
 
-                if (await this._context.Persons.FirstOrDefaultAsync(x => x.Email == message.User.Email,
-                                                                    cancellationToken) != null)
+                if (await this._context.Users.FirstOrDefaultAsync(x => x.Email == message.User.Email,
+                                                                  cancellationToken) != null)
                 {
                     throw new RestException(HttpStatusCode.BadRequest, new { Email = Constants.InUse });
                 }
 
                 var salt = Guid.NewGuid().ToByteArray();
 
-                var person = new Person
+                var person = new User
                 {
                     Username = message.User.Username,
                     Email = message.User.Email,
@@ -88,9 +88,9 @@
                     Salt = salt
                 };
 
-                this._context.Persons.Add(person);
+                this._context.Users.Add(person);
                 await this._context.SaveChangesAsync(cancellationToken);
-                var user = this._mapper.Map<Person, User>(person);
+                var user = this._mapper.Map<User, UserDTO>(person);
                 user.Token = await this._jwtTokenGenerator.CreateToken(person.Username);
 
                 return new UserEnvelope(user);

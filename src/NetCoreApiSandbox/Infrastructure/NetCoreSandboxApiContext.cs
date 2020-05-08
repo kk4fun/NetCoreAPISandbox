@@ -19,7 +19,7 @@
 
         public DbSet<Comment> Comments { get; set; }
 
-        public DbSet<Person> Persons { get; set; }
+        public DbSet<User> Users { get; set; }
 
         public DbSet<Tag> Tags { get; set; }
 
@@ -42,11 +42,11 @@
 
             modelBuilder.Entity<ArticleFavorite>(b =>
             {
-                b.HasKey(t => new { t.ArticleId, t.PersonId });
+                b.HasKey(t => new { t.ArticleId, PersonId = t.UserId });
 
                 b.HasOne(pt => pt.Article).WithMany(p => p.ArticleFavorites).HasForeignKey(pt => pt.ArticleId);
 
-                b.HasOne(pt => pt.Person).WithMany(t => t.ArticleFavorites).HasForeignKey(pt => pt.PersonId);
+                b.HasOne(pt => pt.User).WithMany(t => t.ArticleFavorites).HasForeignKey(pt => pt.UserId);
             });
 
             modelBuilder.Entity<FollowedPeople>(b =>
@@ -74,6 +74,13 @@
                  .WithMany(t => t.Following)
                  .HasForeignKey(pt => pt.TargetId)
                  .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            modelBuilder.Entity<User>(user =>
+            {
+                user.HasOne(user => user.Person)
+                    .WithOne(person => person.User)
+                    .HasForeignKey<Person>(user => user.Id);
             });
         }
 

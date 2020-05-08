@@ -6,9 +6,11 @@
     using System.IO;
     using System.Threading.Tasks;
     using MediatR;
+    using Microsoft.AspNetCore.Hosting;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using Moq;
     using NetCoreApiSandbox.Infrastructure;
 
     #endregion
@@ -16,7 +18,7 @@
     public class SliceFixture: IDisposable
     {
         private static readonly IConfiguration Config;
-        private readonly string _dbName = Guid.NewGuid() + ".db";
+        private readonly string _dbName = string.Concat(Guid.NewGuid().ToString(), ".db");
         private readonly ServiceProvider _provider;
 
         private readonly IServiceScopeFactory _scopeFactory;
@@ -28,7 +30,8 @@
 
         protected SliceFixture()
         {
-            var startup = new Startup(Config);
+            var mockWebhostEnv = new Mock<IWebHostEnvironment>();
+            var startup = new Startup(Config, mockWebhostEnv.Object);
             var services = new ServiceCollection();
 
             var builder = new DbContextOptionsBuilder();
@@ -59,10 +62,9 @@
 
         private async Task ExecuteScopeAsync(Func<IServiceProvider, Task> action)
         {
-            using (var scope = this._scopeFactory.CreateScope())
-            {
-                await action(scope.ServiceProvider);
-            }
+            using var scope = this._scopeFactory.CreateScope();
+
+            await action(scope.ServiceProvider);
         }
 
         private async Task<T> ExecuteScopeAsync<T>(Func<IServiceProvider, Task<T>> action)

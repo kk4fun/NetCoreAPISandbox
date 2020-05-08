@@ -15,7 +15,7 @@
 
     #endregion
 
-    public class Create
+    public static class Create
     {
         #region Nested type: ArticleDataValidator
 
@@ -42,7 +42,7 @@
 
         #region Nested type: CommandValidator
 
-        private protected class CommandValidator: AbstractValidator<Command>
+        private class CommandValidator: AbstractValidator<Command>
         {
             public CommandValidator()
             {
@@ -70,9 +70,9 @@
             public async Task<ArticleEnvelope> Handle(Command message, CancellationToken cancellationToken)
             {
                 var author =
-                    await this._context.Persons.FirstAsync(x => x.Username ==
-                                                                this._currentUserAccessor.GetCurrentUsername(),
-                                                           cancellationToken);
+                    await this._context.Users.FirstAsync(x => x.Username ==
+                                                              this._currentUserAccessor.GetCurrentUsername(),
+                                                         cancellationToken);
 
                 var tags = new List<Tag>();
 

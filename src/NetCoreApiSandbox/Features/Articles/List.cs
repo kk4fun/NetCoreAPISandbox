@@ -11,7 +11,7 @@ namespace NetCoreApiSandbox.Features.Articles
 
     #endregion
 
-    public class List
+    public static class List
     {
         #region Nested type: Query
 
@@ -57,7 +57,7 @@ namespace NetCoreApiSandbox.Features.Articles
         /// <summary>
         ///     MediatR query handler
         /// </summary>
-        protected class QueryHandler: IRequestHandler<Query, ArticlesEnvelope>
+        private class QueryHandler: IRequestHandler<Query, ArticlesEnvelope>
         {
             private readonly NetCoreSandboxApiContext _context;
             private readonly ICurrentUserAccessor _currentUserAccessor;
@@ -81,7 +81,7 @@ namespace NetCoreApiSandbox.Features.Articles
 
                 if (message.IsFeed && this._currentUserAccessor.GetCurrentUsername() != null)
                 {
-                    var currentUser = await this._context.Persons.Include(x => x.Following)
+                    var currentUser = await this._context.Users.Include(x => x.Following)
                                                 .FirstOrDefaultAsync(x => x.Username == this._currentUserAccessor
                                                                                             .GetCurrentUsername(),
                                                                      cancellationToken);
@@ -108,8 +108,8 @@ namespace NetCoreApiSandbox.Features.Articles
                 if (!string.IsNullOrWhiteSpace(message.Author))
                 {
                     var author =
-                        await this._context.Persons.FirstOrDefaultAsync(x => x.Username == message.Author,
-                                                                        cancellationToken);
+                        await this._context.Users.FirstOrDefaultAsync(x => x.Username == message.Author,
+                                                                      cancellationToken);
 
                     if (author != null)
                     {
@@ -124,12 +124,12 @@ namespace NetCoreApiSandbox.Features.Articles
                 if (!string.IsNullOrWhiteSpace(message.FavoritedUsername))
                 {
                     var author =
-                        await this._context.Persons.FirstOrDefaultAsync(x => x.Username == message.FavoritedUsername,
-                                                                        cancellationToken);
+                        await this._context.Users.FirstOrDefaultAsync(x => x.Username == message.FavoritedUsername,
+                                                                      cancellationToken);
 
                     if (author != null)
                     {
-                        queryable = queryable.Where(x => x.ArticleFavorites.Any(y => y.PersonId == author.Id));
+                        queryable = queryable.Where(x => x.ArticleFavorites.Any(y => y.UserId == author.Id));
                     }
                     else
                     {

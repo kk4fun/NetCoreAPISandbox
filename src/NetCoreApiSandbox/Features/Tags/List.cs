@@ -2,16 +2,18 @@ namespace NetCoreApiSandbox.Features.Tags
 {
     #region
 
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
+    using NetCoreApiSandbox.Domain;
     using NetCoreApiSandbox.Infrastructure;
 
     #endregion
 
-    public sealed class List
+    public static class List
     {
         #region Nested type: Query
 
@@ -34,7 +36,8 @@ namespace NetCoreApiSandbox.Features.Tags
 
             public async Task<TagsEnvelope> Handle(Query message, CancellationToken cancellationToken)
             {
-                var tags = await this._context.Tags.OrderBy(x => x.Id).AsNoTracking().ToListAsync(cancellationToken);
+                IEnumerable<Tag> tags =
+                    await this._context.Tags.OrderBy(x => x.Id).AsNoTracking().ToListAsync(cancellationToken);
 
                 return new TagsEnvelope { Tags = tags.Select(x => x.Id).ToList() };
             }

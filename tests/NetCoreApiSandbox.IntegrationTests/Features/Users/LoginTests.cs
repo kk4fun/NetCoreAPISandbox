@@ -18,7 +18,7 @@
         {
             var salt = Guid.NewGuid().ToByteArray();
 
-            var person = new Person
+            var person = new User
             {
                 Username = "username",
                 Email = "email",

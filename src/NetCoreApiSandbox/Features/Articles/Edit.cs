@@ -17,7 +17,7 @@ namespace NetCoreApiSandbox.Features.Articles
 
     #endregion
 
-    public class Edit
+    public static class Edit
     {
         #region Nested type: Command
 

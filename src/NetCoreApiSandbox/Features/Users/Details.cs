@@ -46,7 +46,7 @@ namespace NetCoreApiSandbox.Features.Users
 
             public async Task<UserEnvelope> Handle(Query message, CancellationToken cancellationToken)
             {
-                var person = await this._context.Persons.AsNoTracking()
+                var person = await this._context.Users.AsNoTracking()
                                        .FirstOrDefaultAsync(x => x.Username == message.Username, cancellationToken);
 
                 if (person == null)
@@ -54,7 +54,7 @@ namespace NetCoreApiSandbox.Features.Users
                     throw new RestException(HttpStatusCode.NotFound, new { User = Constants.NotFound });
                 }
 
-                var user = this._mapper.Map<Person, User>(person);
+                var user = this._mapper.Map<User, UserDTO>(person);
                 user.Token = await this._jwtTokenGenerator.CreateToken(person.Username);
 
                 return new UserEnvelope(user);

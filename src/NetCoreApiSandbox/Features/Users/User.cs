@@ -1,25 +1,30 @@
 namespace NetCoreApiSandbox.Features.Users
 {
-    public class User
+    public abstract class UserLoginDTO
     {
-        public string Username { get; set; }
-
         public string Email { get; set; }
 
-        public string Bio { get; set; }
-
-        public string Image { get; set; }
+        public string Password { get; set; }
 
         public string Token { get; set; }
     }
 
+    public class UserDTO: UserLoginDTO
+    {
+        public string Username { get; set; }
+
+        public string Bio { get; set; }
+
+        public string Image { get; set; }
+    }
+
     public class UserEnvelope
     {
-        public UserEnvelope(User user)
+        public UserEnvelope(UserDTO user)
         {
             this.User = user;
         }
 
-        public User User { get; set; }
+        public UserDTO User { get; set; }
     }
 }

@@ -48,7 +48,7 @@ namespace NetCoreApiSandbox.Domain
         /// Author navigation property
         /// </summary>
         [ForeignKey("AuthorId")]
-        public Person Author { get; set; }
+        public User Author { get; set; }
 
         /// <summary>
         /// Onw to many comments navigation property

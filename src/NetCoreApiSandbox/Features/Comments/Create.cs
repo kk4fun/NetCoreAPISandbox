@@ -87,9 +87,9 @@ namespace NetCoreApiSandbox.Features.Comments
                 }
 
                 var author =
-                    await this._context.Persons.FirstAsync(x => x.Username ==
-                                                                this._currentUserAccessor.GetCurrentUsername(),
-                                                           cancellationToken);
+                    await this._context.Users.FirstAsync(x => x.Username ==
+                                                              this._currentUserAccessor.GetCurrentUsername(),
+                                                         cancellationToken);
 
                 var comment = new Comment
                 {

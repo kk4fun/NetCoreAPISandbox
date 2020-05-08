@@ -13,7 +13,7 @@ namespace NetCoreApiSandbox.Domain
         /// <summary>
         /// Observer navigation property
         /// </summary>
-        public Person Observer { get; set; }
+        public User Observer { get; set; }
 
         /// <summary>
         /// Get or sets the target identifier
@@ -23,6 +23,6 @@ namespace NetCoreApiSandbox.Domain
         /// <summary>
         /// Target navigation property
         /// </summary>
-        public Person Target { get; set; }
+        public User Target { get; set; }
     }
 }

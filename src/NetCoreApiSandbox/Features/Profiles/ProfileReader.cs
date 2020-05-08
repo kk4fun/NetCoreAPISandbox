@@ -32,18 +32,18 @@ namespace NetCoreApiSandbox.Features.Profiles
         {
             var currentUserName = this._currentUserAccessor.GetCurrentUsername();
 
-            var person = await this._context.Persons.AsNoTracking().FirstOrDefaultAsync(x => x.Username == username);
+            var person = await this._context.Users.AsNoTracking().FirstOrDefaultAsync(x => x.Username == username);
 
             if (person == null)
             {
                 throw new RestException(HttpStatusCode.NotFound, new { User = Constants.NotFound });
             }
 
-            var profile = this._mapper.Map<Person, Profile>(person);
+            var profile = this._mapper.Map<User, Profile>(person);
 
             if (currentUserName != null)
             {
-                var currentPerson = await this._context.Persons.Include(x => x.Following)
+                var currentPerson = await this._context.Users.Include(x => x.Following)
                                               .Include(x => x.Followers)
                                               .FirstOrDefaultAsync(x => x.Username == currentUserName);
 
