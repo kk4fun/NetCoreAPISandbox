@@ -3,7 +3,7 @@ services:
   netcoreapisandbox:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile-deploy
 #      dockerfile: Dockerfile-win64
     environment:
      - NetCoreApiSandbox_DatabaseProvider=${NetCoreApiSandbox_DatabaseProvider}

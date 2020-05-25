@@ -16,7 +16,7 @@
         /// </summary>
         /// <param name="fixture"></param>
         /// <returns></returns>
-        public static async Task<User> CreateDefaultUser(SliceFixture fixture)
+        public static async Task<UserDTO> CreateDefaultUser(SliceFixture fixture)
         {
             var command = new Create.Command
             {
@@ -29,3 +29,4 @@
         }
     }
 }
+
